@@ -1,0 +1,25 @@
+<%- include("partials/header", { title: category.name }) %>
+
+<a href="/">&larr; All categories</a>
+<h1><%= category.name %></h1>
+<p><%= category.description %></p>
+
+<div class="grid">
+  <% if(products.length === 0){ %>
+    <p>No products in this category yet.</p>
+  <% } %>
+  <% products.forEach(product => { %>
+    <article class="card">
+      <h3>
+        <a href="/products/<%= product.id %>">
+          <%= product.name %>
+        </a>
+      </h3>
+      <p>Brand: <%= product.brand_name %></p>
+      <p>Price: <%= product.price %></p>
+      <p>Stock: <%= product.stock %></p>
+    </article>
+  <% }) %>
+</div>
+
+<%- include("partials/footer") %>

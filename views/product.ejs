@@ -1,0 +1,38 @@
+<%- include('partials/header', {title: product.name}) %>
+
+<a href="/categories/<%= product.category_id %>">
+  &larr; Back to <%= product.category_name %>
+</a>
+
+<h1><%= product.name %></h1>
+<p><%= product.description %></p>
+
+<dl>
+  <dt>Brand</dt>
+  <dd><%= product.brand_name %></dd>
+
+  <dt>Category</dt>
+  <dd><%= product.category_name %></dd>
+
+  <dt>Price</dt>
+  <dd>₹<%= product.price %></dd>
+
+  <dt>Stock</dt>
+  <dd><%= product.stock %></dd>
+</dl>
+
+<h2>Compatible accessories</h2>
+
+<% if (accessories.length === 0) { %>
+  <p>No compatible accessories listed.</p>
+<% } else { %>
+  <ul>
+    <% accessories.forEach(accessory => { %>
+      <li>
+        <%= accessory.name %> — ₹<%= accessory.price %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- include("partials/footer") %>
