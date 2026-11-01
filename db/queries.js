@@ -80,18 +80,38 @@ async function getProductById(id) {
 }
 
 async function getProductsByCategory(categoryId) {
+  if (Number(categoryId) === 5) {//accessories
+    const { rows } = await pool.query(`
+      SELECT
+        id,
+        name,
+        description,
+        price,
+        stock,
+        'product' AS source
+      FROM products
+      WHERE category_id = $1
+
+      UNION ALL
+
+      SELECT
+        id,
+        name,
+        type AS description,
+        price,
+        stock,
+        'accessory' AS source
+      FROM accessories
+    `, [categoryId]);
+
+    return rows;
+  }
+
   const { rows } = await pool.query(
-    `SELECT
-       p.*,
-       c.name AS category_name,
-       b.name AS brand_name
-     FROM products p
-     JOIN categories c ON p.category_id = c.id
-     JOIN brands b ON p.brand_id = b.id
-     WHERE p.category_id = $1
-     ORDER BY p.name`,
+    'SELECT * FROM products WHERE category_id = $1',
     [categoryId]
   );
+
   return rows;
 }
 
