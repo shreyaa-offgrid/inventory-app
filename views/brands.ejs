@@ -1,0 +1,16 @@
+<%- include('partials/header', {title:'Home'}) %>
+
+<h2>Brands</h2>
+
+<div class="grid">
+  <% brands.forEach(brand => { %>
+    <article class="card">
+      <h3>
+          <%= brand.name %>
+      </h3>
+      <p><%= brand.description %></p>
+    </article>
+  <% }); %>
+</div>
+
+<%- include('partials/footer') %>

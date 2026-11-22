@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> | String Theory</title>
+  <title>
+    <%= title %> | String Theory
+  </title>
   <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
   <header>
-   <a href="/" class="logo">String Theory</a>
-   <nav>
-     <a href="/">Home</a>
+    <a href="/" class="logo">String Theory</a>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/categories">Categories</a>
+      <a href="/brands">Brands</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-btn">Manage Inventory ▾</button>
+
+        <div class="dropdown-content">
+          <a href="/categories/new">Add Category</a>
+          <a href="/brands/new">Add Brand</a>
+          <a href="/products/new">Add Product</a>
+        </div>
+      </div>
     </nav>
   </header>
 

@@ -1,0 +1,18 @@
+<%- include('partials/header', {title:'Home'}) %>
+
+<h2>Categories</h2>
+
+<div class="grid">
+  <% categories.forEach(category => { %>
+    <article class="card">
+      <h3>
+        <a href="/categories/<%= category.id %>">
+          <%= category.name %>
+        </a>
+      </h3>
+      <p><%= category.description %></p>
+    </article>
+  <% }); %>
+</div>
+
+<%- include('partials/footer') %>

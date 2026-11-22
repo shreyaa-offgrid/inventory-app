@@ -1,22 +1,11 @@
 <%- include('partials/header', {title:'Home'}) %>
-
-<h1>Find your sound.</h1>
-
-<p>Browse our guitars & music gear collection.</p>
-
-<h2>Categories</h2>
-
-<div class="grid">
-  <% categories.forEach(category => { %>
-    <article class="card">
-      <h3>
-        <a href="/categories/<%= category.id %>">
-          <%= category.name %>
-        </a>
-      </h3>
-      <p><%= category.description %></p>
-    </article>
-  <% }); %>
+<div class="home-page">
+  <div class="left">
+    <h1>Find your sound.</h1>
+    <p>Browse our guitars & music gear collection</p>
+  </div>
+  <div class="right">
+    <img src="home.jpg" alt="inside a guitar store">
+  </div>
 </div>
-
 <%- include('partials/footer') %>

@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const indexRouter = require('./routes/indexRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const productRouter = require('./routes/productRouter');
+const brandRouter = require('./routes/brandRouter');
 
 const app = express();
 
@@ -15,9 +16,10 @@ app.use(morgan('dev'));
 app.use('/', indexRouter);
 app.use('/categories', categoryRouter);
 app.use('/products', productRouter);
+app.use('/brands', brandRouter);
 
 app.use((req, res)=>{
-  res.status(400).send('Page not found');
+  res.status(404).send('Page not found');
 });
 
 app.use((err, req, res, next)=>{
