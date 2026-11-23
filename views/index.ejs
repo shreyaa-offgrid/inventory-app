@@ -1,11 +1,45 @@
+
 <%- include('partials/header', {title:'Home'}) %>
-<div class="home-page">
-  <div class="left">
-    <h1>Find your sound.</h1>
-    <p>Browse our guitars & music gear collection</p>
+
+<section class="home-page">
+
+  <div class="hero-content">
+    <p class="eyebrow">STRING THEORY · MUSIC GEAR STORE</p>
+
+    <h1>
+      Find your <span>sound.</span>
+    </h1>
+
+    <p class="hero-description">
+      From your first acoustic guitar to the gear that defines your sound.
+      Find the instruments and accessories that inspire you to play.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/categories" class="button button-primary">
+        Explore Collection
+      </a>
+
+      <a href="/brands" class="button button-secondary">
+        Browse Brands
+      </a>
+    </div>
+
+    <div class="hero-note">
+      <span>Guitars</span>
+      <span>Amplifiers</span>
+      <span>Effects</span>
+      <span>Accessories</span>
+    </div>
   </div>
-  <div class="right">
-    <img src="home.jpg" alt="inside a guitar store">
+
+  <div class="hero-image">
+    <img src="/home.jpg" alt="Inside a guitar and music gear store">
+    <div class="image-caption">
+      <span>YOUR NEXT SOUND STARTS HERE</span>
+    </div>
   </div>
-</div>
+
+</section>
+
 <%- include('partials/footer') %>

@@ -1,34 +1,80 @@
+
 <%- include('partials/header', {title: product.name}) %>
 
-<h1><%= product.name %></h1>
-<p><%= product.description %></p>
+<div class="product-page">
 
-<dl>
-  <dt>Brand</dt>
-  <dd><%= product.brand_name %></dd>
+  <a class="back-link" href="/categories/<%= product.category_id %>">
+    &larr; Back to <%= product.category_name %>
+  </a>
 
-  <dt>Category</dt>
-  <dd><%= product.category_name %></dd>
+  <section class="product-details">
 
-  <dt>Price</dt>
-  <dd>₹<%= product.price %></dd>
+    <div class="product-heading">
+      <div>
+        <p class="eyebrow"><%= product.brand_name %></p>
+        <h1><%= product.name %></h1>
+        <p class="product-description"><%= product.description %></p>
+      </div>
 
-  <dt>Stock</dt>
-  <dd><%= product.stock %></dd>
-</dl>
+      <a class="button button-primary"
+         href="/products/<%= product.id %>/edit">
+        Edit Product
+      </a>
+    </div>
 
-<h2>Compatible accessories</h2>
+    <div class="product-info-grid">
+      <div class="info-item">
+        <span class="info-label">Brand</span>
+        <strong><%= product.brand_name %></strong>
+      </div>
 
-<% if (accessories.length === 0) { %>
-  <p>No compatible accessories listed.</p>
-<% } else { %>
-  <ul>
-    <% accessories.forEach(accessory => { %>
-      <li>
-        <%= accessory.name %> — ₹<%= accessory.price %>
-      </li>
-    <% }) %>
-  </ul>
-<% } %>
+      <div class="info-item">
+        <span class="info-label">Category</span>
+        <strong><%= product.category_name %></strong>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Price</span>
+        <strong class="product-price">
+          ₹<%= Number(product.price).toFixed(2) %>
+        </strong>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Stock</span>
+        <strong>
+          <%= product.stock %> units
+        </strong>
+        <span class="stock-status <%= product.stock > 0 ? 'in-stock' : 'out-of-stock' %>">
+          <%= product.stock > 0 ? 'In stock' : 'Out of stock' %>
+        </span>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="accessories-section">
+    <div class="section-heading">
+      <div>
+        <h2>Compatible accessories</h2>
+        <p>Accessories that go well with this product.</p>
+      </div>
+    </div>
+
+    <% if (accessories.length === 0) { %>
+      <p class="empty-state">No compatible accessories listed yet.</p>
+    <% } else { %>
+      <div class="accessories-grid">
+        <% accessories.forEach(accessory => { %>
+          <article class="accessory-card">
+            <h3><%= accessory.name %></h3>
+            <p>₹<%= Number(accessory.price).toFixed(2) %></p>
+          </article>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+</div>
 
 <%- include("partials/footer") %>

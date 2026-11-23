@@ -1,3 +1,5 @@
+/* 1. GLOBAL STYLES */
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +10,11 @@ body {
   line-height: 1.6;
   color: #242424;
   background: #f5f3ef;
+}
+
+main {
+  padding: 2rem 8%;
+  min-height: 80vh;
 }
 
 header,
@@ -33,39 +40,101 @@ header a {
   font-weight: bold;
 }
 
-main {
-  padding: 2rem 8%;
-  min-height: 80vh;
+footer {
+  text-align: center;
 }
 
-.home-page{
-  display: flex; 
-  align-items:start;
-  justify-content:space-around;
-}
 
-.home-page .left{
-  font-size:x-large;
-}
+/* 2. NAVIGATION */
 
-.home-page .right{
-  padding: 0.5em;
-  margin-top: 2em;
-  border-radius: 0.5em;
-  border: 1px solid black;
+nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 24px;
 }
 
-.home-page img{
-  border-radius: 0.5em;
+.nav-dropdown {
+  position: relative;
 }
 
-.home-page img:hover{
-  transform: scale(1.02);
-  transition: 300ms ease-out;
+.nav-dropdown-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 8px;
+  color: white;
 }
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  min-width: 160px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  z-index: 10;
+  border: 2px solid black;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: black;
+  border-radius: 6px;
+}
+
+.nav-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  transform: scale(0.98);
+  background-color: #f5f3ef;
+}
+
+/* 3. REUSABLE COMPONENTS */
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 200ms ease;
+}
+
+.button-primary {
+  background: #7a3e26;
+  color: white;
+  border: 1px solid #7a3e26;
+}
+
+.button-primary:hover {
+  background: #5e2e1c;
+  transform: translateY(-2px);
+}
+
+.button-secondary {
+  color: #7a3e26;
+  border: 1px solid #7a3e26;
+  background: transparent;
+}
+
+.button-secondary:hover {
+  background: #eee5df;
+}
+
+.eyebrow {
+  color: #7a3e26;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* 4. CATEGORY AND BRAND LISTING */
 
 .grid {
   display: grid;
@@ -85,11 +154,208 @@ main {
   color: #7a3e26;
 }
 
-footer {
-  text-align: center;
+/* 5. HOME PAGE */
+
+.home-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+  min-height: 65vh;
 }
 
-/* Errors */
+.hero-content h1 {
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1.1;
+  margin: 1rem 0;
+}
+
+.hero-content h1 span {
+  color: #7a3e26;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  color: #555;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.hero-note span::before {
+  content: "•";
+  color: #7a3e26;
+  margin-right: 0.5rem;
+}
+
+.hero-image {
+  position: relative;
+  height: 450px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+}
+
+
+/* 6. PRODUCT DETAIL PAGE */
+
+.product-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  color: #7a3e26;
+  margin-bottom: 1.5rem;
+}
+
+.product-details {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.product-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.product-heading h1 {
+  margin: 0.25rem 0;
+  font-size: 2.3rem;
+}
+
+.product-heading .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.product-description {
+  color: #666;
+  margin-top: 0.75rem;
+}
+
+.product-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.info-label {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.product-price {
+  color: #7a3e26;
+  font-size: 1.2rem;
+}
+
+.stock-status {
+  font-size: 0.8rem;
+}
+
+.in-stock {
+  color: #287a43;
+}
+
+.out-of-stock {
+  color: #b42318;
+}
+
+/* 7. COMPATIBLE ACCESSORIES */
+
+.accessories-section {
+  margin-top: 3rem;
+}
+
+.section-heading h2 {
+  margin-bottom: 0.25rem;
+}
+
+.section-heading p {
+  color: #777;
+  margin-top: 0;
+}
+
+.accessories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.accessory-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.accessory-card h3 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.accessory-card p {
+  color: #7a3e26;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.empty-state {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: #777;
+}
+
+
+/* 8. FORM VALIDATION ERRORS */
 
 .error-container {
   background-color: #fff0f0;
@@ -115,61 +381,63 @@ footer {
   margin: 5px 0;
 }
 
-/* Navbar */
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* 9. RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem 5%;
+  }
+
+  .home-page {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+
+  .hero-image {
+    height: 320px;
+  }
+
+  .hero-note {
+    margin-top: 2rem;
+  }
+
+  .product-heading {
+    flex-direction: column;
+  }
+
+  .product-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-nav {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2.8rem;
+  }
 
-nav a {
-  text-decoration: none;
-}
+  .hero-actions {
+    flex-direction: column;
+  }
 
-.nav-dropdown {
-  position: relative;
-}
+  .hero-actions .button {
+    text-align: center;
+  }
 
-.nav-dropdown-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  font: inherit;
-  padding: 8px;
-  color: white;
-}
+  .hero-image {
+    height: 250px;
+  }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  right: 0;
-  min-width: 160px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border-radius: 6px;
-  z-index: 10;
-  border: 2px black solid;
-}
+  .product-details {
+    padding: 1.25rem;
+  }
 
-.dropdown-content a {
-  display: block;
-  padding: 10px 14px;
-  color: black;
-  border-radius: 6px;
-}
+  .product-heading h1 {
+    font-size: 1.8rem;
+  }
 
-.nav-dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content a:hover{
-  transform: scale(0.98);
-  background-color: #f5f3ef;
+  .product-info-grid {
+    gap: 1.5rem 1rem;
+  }
 }
