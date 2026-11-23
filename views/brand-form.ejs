@@ -1,0 +1,40 @@
+<%- include("partials/header", { title: formTitle }) %>
+
+<h1><%= formTitle %></h1>
+<% if (errors && errors.length > 0) { %>
+  <div class="error-container">
+    <h3>Please correct the following errors:</h3>
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+<form action="<%= formAction %>" method="POST">
+  <div>
+    <label for="name">Brand name</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value="<%= brand ? brand.name : '' %>"
+      required
+      maxlength="100"
+    >
+  </div>
+
+  <div>
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      name="description"
+    ><%= brand ? brand.description || '' : '' %></textarea>
+  </div>
+
+  <button type="submit">Save</button>
+</form>
+
+<a href="/">Cancel</a>
+
+<%- include("partials/footer") %>
