@@ -1,3 +1,4 @@
+const { validationResult } = require("express-validator");
 const db = require("../db/queries");
 
 async function getProduct(req, res, next) {
@@ -17,4 +18,45 @@ async function getProduct(req, res, next) {
   }
 }
 
-module.exports = { getProduct };
+async function getNewProductForm(req, res, next){
+  try{
+    const categories = await db.getAllCategories();
+    const brands = await db.getAllBrands();
+    res.render('product-form', {
+      formTitle: "Add product",
+      formAction: "/products/new",
+      product: null,
+      categories, brands, 
+      errors:[],
+    })
+  } catch(err){
+    next(err);
+  }
+}
+
+async function createProduct(req, res, next) {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).render('product-form', {
+      formTitle: 'Add Product',
+      formAction: "/products/new",
+      product: req.body,
+      categories, brands, 
+      errors:errors.array(),
+    });
+  }
+
+  try{
+    const {
+      name, description, price, stock, category_id, brand_id
+    } = req.body;
+    const product = await db.createProduct({
+      name, description, price, stock, category_id, brand_id
+    });
+    res.redirect(`/products/${product.id}`);
+  } catch(err){
+    next(err);
+  }
+}
+
+module.exports = { getProduct, getNewProductForm, createProduct };
