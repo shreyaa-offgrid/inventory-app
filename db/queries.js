@@ -115,6 +115,18 @@ async function getProductsByCategory(categoryId) {
   return rows;
 }
 
+async function getProductsByBrand(brandId) {
+  const {rows} = await pool.query(
+    `SELECT 
+      p.*, c.name AS category_name
+    FROM products p
+    JOIN categories c ON p.category_id = c.id
+    WHERE p.brand_id = $1
+    ORDER BY p.name`, [brandId]
+  );
+  return rows;
+}
+
 async function createProduct({
   name,
   description,
@@ -175,6 +187,12 @@ async function getAllBrands() {
   return rows;
 }
 
+async function getBrandById(id) {
+  const {rows} = await pool.query(
+    'SELECT * FROM brands WHERE id = $1', [id]
+  );
+  return rows[0];
+}
 // ---------- ACCESSORIES ----------
 
 async function getAllAccessories() {
@@ -199,8 +217,9 @@ async function getAccessoriesByProduct(productId) {
 module.exports = {
   getAllCategories, getCategoryById,
   createCategory, updateCategory, deleteCategory,
-  getAllProducts, getProductById, getProductsByCategory,
+  getAllProducts, getProductById, 
+  getProductsByCategory, getProductsByBrand,
   createProduct, updateProduct, deleteProduct,
-  getAllBrands,
+  getAllBrands, getBrandById, 
   getAllAccessories, getAccessoriesByProduct,
 };

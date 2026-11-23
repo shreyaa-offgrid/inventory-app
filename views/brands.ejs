@@ -6,7 +6,9 @@
   <% brands.forEach(brand => { %>
     <article class="card">
       <h3>
-          <%= brand.name %>
+          <a href="/brands/<%= brand.id %>">
+            <%= brand.name %>
+          </a>
       </h3>
       <p><%= brand.description %></p>
     </article>

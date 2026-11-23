@@ -9,4 +9,23 @@ async function getAllBrands(req, res, next){
   }
 }
 
-module.exports = {getAllBrands};
+async function getBrand(req, res, next){
+  try{
+    const brandId = Number(req.params.id);
+    if (!Number.isInteger(brandId) || brandId < 1) {
+      return res.status(400).send("Invalid brand ID");
+    }
+    
+    const brand = await db.getBrandById(brandId);
+    if(!brand){
+      return res.status(400).send('Brand not found');
+    }
+
+    const products = await db.getProductsByBrand(brandId);
+    res.render('brand', {brand, products});
+  } catch(err){
+    next(err);
+  }
+}
+
+module.exports = {getAllBrands, getBrand};
