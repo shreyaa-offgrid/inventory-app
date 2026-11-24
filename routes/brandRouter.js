@@ -6,6 +6,8 @@ const brandRouter = Router();
 brandRouter.get('/', brandController.getAllBrands);
 brandRouter.get('/new', brandController.getNewBrandForm);
 brandRouter.post('/new', validateBrand, brandController.createBrand);
+brandRouter.get('/:id/edit', brandController.getEditBrandForm);
+brandRouter.post('/:id/edit', validateBrand, brandController.updateBrand);
 brandRouter.get('/:id', brandController.getBrand);
 
 module.exports = brandRouter;

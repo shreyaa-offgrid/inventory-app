@@ -1,9 +1,13 @@
 <%- include("partials/header", { title: brand.name }) %>
 
   <a href="/brands">&larr; All brands</a>
-  <h1>
-    <%= brand.name %>
-  </h1>
+  <div class="brand-heading">
+   <h1> <%= brand.name %> </h1> 
+   <a class="button button-primary" href="/brands/<%= brand.id %>/edit">
+      Edit Brand
+    </a>
+  </div>
+  
   <p>
     <%= brand.description %>
   </p>

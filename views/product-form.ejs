@@ -66,7 +66,10 @@
     <select id="category_id" name="category_id" required>
       <option value="">Select a category</option>
       <% categories.forEach(category => { %>
-        <option value="<%= category.id %>">
+        <option 
+          value="<%= category.id %>"
+          <%= product && Number(product.category_id) === category.id ? 'selected':'' %>
+        >
           <%= category.name %>
         </option>
       <% }) %>
@@ -78,7 +81,10 @@
     <select id="brand_id" name="brand_id" required>
       <option value="">Select a brand</option>
       <% brands.forEach(brand => { %>
-        <option value="<%= brand.id %>">
+        <option 
+          value="<%= brand.id %>"
+          <%= product && Number(product.brand_id) === brand.id ? 'selected' : '' %>
+        >
           <%= brand.name %>
         </option>
       <% }) %>

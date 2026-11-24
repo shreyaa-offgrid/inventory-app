@@ -36,27 +36,104 @@ async function getNewProductForm(req, res, next){
 
 async function createProduct(req, res, next) {
   const errors = validationResult(req);
-  if(!errors.isEmpty()){
-    return res.status(400).render('product-form', {
-      formTitle: 'Add Product',
-      formAction: "/products/new",
-      product: req.body,
-      categories, brands, 
-      errors:errors.array(),
-    });
-  }
+  try {
+    const categories = await db.getAllCategories();
+    const brands = await db.getAllBrands();
+    if (!errors.isEmpty()) {
+      return res.status(400).render('product-form', {
+        formTitle: 'Add Product',
+        formAction: '/products/new',
+        product: req.body,
+        categories,
+        brands,
+        errors: errors.array(),
+      });
+    }
 
-  try{
     const {
       name, description, price, stock, category_id, brand_id
     } = req.body;
+
     const product = await db.createProduct({
       name, description, price, stock, category_id, brand_id
     });
+
     res.redirect(`/products/${product.id}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getEditProductForm(req, res, next){
+  try{
+    const productId = Number(req.params.id);
+    if(!Number(productId) || productId<1){
+      return res.status(400).send('Invalid product ID');
+    }
+    const product = await db.getProductById(productId);
+    if(!product){
+      return res.status(400).send('Product not found');
+    }
+    const categories = await db.getAllCategories();
+    const brands = await db.getAllBrands();
+    res.render('product-form', {
+      formTitle: "Edit Product",
+      formAction: `/products/${productId}/edit`,
+      product, categories, brands, 
+      errors:[],
+    });
   } catch(err){
     next(err);
   }
 }
 
-module.exports = { getProduct, getNewProductForm, createProduct };
+async function updateProduct(req, res, next) {
+  const errors = validationResult(req);
+  const productId = Number(req.params.id);
+
+  if (!Number.isInteger(productId) || productId < 1) {
+    return res.status(400).send('Invalid product ID');
+  }
+
+  try {
+    const existingProduct = await db.getProductById(productId);
+
+    if (!existingProduct) {
+      return res.status(404).send('Product not found');
+    }
+
+    const categories = await db.getAllCategories();
+    const brands = await db.getAllBrands();
+
+    if (!errors.isEmpty()) {
+      return res.status(400).render('product-form', {
+        formTitle: 'Edit Product',
+        formAction: `/products/${productId}/edit`,
+        product: req.body,
+        categories,
+        brands,
+        errors: errors.array(),
+      });
+    }
+
+    const {
+      name, description, price,
+      stock, category_id, brand_id,
+    } = req.body;
+
+    const product = await db.updateProduct(productId, {
+      name, description, price,
+      stock, category_id, brand_id,
+    });
+
+    res.redirect(`/products/${product.id}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+module.exports = { 
+  getProduct, getNewProductForm, createProduct,
+  getEditProductForm, updateProduct
+};

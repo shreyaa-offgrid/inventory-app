@@ -203,6 +203,17 @@ async function createBrand(name, description) {
   );
   return rows[0];
 }
+
+async function updateBrand(id, name, description) {
+  const { rows } = await pool.query(
+    `UPDATE brands
+     SET name = $1, description = $2
+     WHERE id = $3
+     RETURNING *`,
+    [name, description, id]
+  );
+  return rows[0];
+}
 // ---------- ACCESSORIES ----------
 
 async function getAllAccessories() {
@@ -231,6 +242,6 @@ module.exports = {
   getProductsByCategory, getProductsByBrand,
   createProduct, updateProduct, deleteProduct,
   getAllBrands, getBrandById, 
-  createBrand, 
+  createBrand, updateBrand,
   getAllAccessories, getAccessoriesByProduct,
 };
