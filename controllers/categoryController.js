@@ -79,7 +79,7 @@ async function getEditCategoryForm(req, res, next) {
 
     const category = await db.getCategoryById(categoryId);
     if(!category){
-      return res.status(400).send('Category not found');
+      return res.status(404).send('Category not found');
     }
 
     res.render('category-form', {

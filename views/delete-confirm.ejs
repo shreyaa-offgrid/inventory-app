@@ -1,0 +1,42 @@
+
+<%- include("partials/header", { title: `Delete ${entityType}` }) %>
+
+<div class="delete-confirm-page">
+  <h1>Delete <%= entityType %></h1>
+
+  <h2>Are you sure you want to delete <%= entityName %>?</h2>
+
+  <% if (errors && errors.length > 0) { %>
+    <div class="error-container">
+      <h3>Please correct the following errors:</h3>
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="<%= formAction %>" method="POST">
+    <label for="adminPassword">Admin password</label>
+    <input
+      name="adminPassword"
+      id="adminPassword"
+      type="password"
+      required
+      autocomplete="current-password"
+    >
+
+    <div class="delete-actions">
+      <button type="submit" class="button button-danger">
+        Delete permanently
+      </button>
+
+      <a href="<%= cancelUrl %>" class="button button-secondary">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

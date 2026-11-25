@@ -19,7 +19,7 @@ async function getBrand(req, res, next){
     
     const brand = await db.getBrandById(brandId);
     if(!brand){
-      return res.status(400).send('Brand not found');
+      return res.status(404).send('Brand not found');
     }
 
     const products = await db.getProductsByBrand(brandId);
@@ -76,7 +76,7 @@ async function getEditBrandForm(req, res, next) {
 
     const brand = await db.getBrandById(brandId);
     if(!brand){
-      return res.status(400).send('Brand not found');
+      return res.status(404).send('Brand not found');
     }
 
     res.render('brand-form', {
@@ -102,7 +102,7 @@ async function updateBrand(req, res, next) {
     const existingBrand = await db.getBrandById(brandId);
 
     if(!existingBrand){
-      return res.status(400).send('Brand not found');
+      return res.status(404).send('Brand not found');
     }
 
     if(!errors.isEmpty()){
