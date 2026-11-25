@@ -2,13 +2,25 @@
 
   <a href="/categories">&larr; All categories</a>
   <div class="category-heading">
-    <h1><%= category.name %></h1>
+    <div>
+      <h1>
+        <%= category.name %>
+      </h1>
+      <p>
+        <%= category.description %>
+      </p>
+    </div>
 
-    <a class="button button-primary" href="/categories/<%= category.id %>/edit">
-      Edit Category
-    </a>
+    <div class="category-actions">
+      <a class="button button-primary" href="/categories/<%= category.id %>/edit">
+        Edit Category
+      </a>
+
+      <a class="button button-danger" href="/categories/<%= category.id %>/delete">
+        Delete Category
+      </a>
+    </div>
   </div>
-  <p><%= category.description %></p>
 
   <div class="grid">
     <% if(products.length===0){ %>

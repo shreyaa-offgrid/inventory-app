@@ -181,11 +181,11 @@ nav {
   margin: 0;
 }
 
-@media (max-width: 480px) {
-  .category-heading, .brand-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+.category-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 /* 5. HOME PAGE */
@@ -248,7 +248,13 @@ nav {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.3s ease-in-out;
 }
+
+.hero-image img:hover{
+  transform: scale(1.02);
+}
+
 
 .image-caption {
   position: absolute;
@@ -510,6 +516,12 @@ nav {
     width: 100%;
     flex-wrap: wrap;
   }
+
+  .category-heading, .brand-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -547,6 +559,11 @@ nav {
 
   .delete-confirm-page {
     padding: 1.25rem;
+  }
+
+  .category-actions, .brand-actions {
+    width: 100%;
+    flex-wrap: wrap;
   }
 }
 

@@ -29,7 +29,7 @@ async function getBrand(req, res, next){
   }
 }
 
-async function getNewBrandForm(req, res) {
+function getNewBrandForm(req, res) {
   res.render('brand-form', {
     formTitle: 'Add Brand',
     formAction: '/brands/new',
@@ -134,7 +134,64 @@ async function updateBrand(req, res, next) {
   }
 }
 
+async function getDeleteBrandConfirmation(req, res, next) {
+  const brandId = Number(req.params.id);
+  if(!Number.isInteger(brandId) || brandId<1){
+    return res.status(400).send('Invalid brand ID');
+  }
+  try{
+    const brand = await db.getBrandById(brandId);
+    if(!brand){
+      return res.status(404).send('Brand not found');
+    }
+
+    const errors=[];
+    if(req.query.error === 'invalid-password'){
+      errors.push({msg: 'Incorrect admin password.'});
+    }
+    if(req.query.error === 'brand-not-empty'){
+      errors.push({
+        msg: 'This brand contains products. Delete or reassign them before deleting the brand.'
+      });
+    }
+    res.render('delete-confirm', {
+      entityType: 'Brand',
+      entityName: brand.name,
+      formAction: `/brands/${brand.id}/delete`,
+      cancelUrl: `/brands/${brand.id}`,
+      errors
+    });
+  } catch(error){
+    next(error);
+  }
+}
+
+async function deleteBrand(req, res, next) {
+  const brandId = Number(req.params.id);
+  if (!Number.isInteger(brandId) || brandId < 1) {
+    return res.status(400).send('Invalid brand ID');
+  }
+
+  try {
+    const brand = await db.deleteBrand(brandId);
+    if (!brand) {
+      return res.status(404).send('Brand not found');
+    }
+    res.redirect('/brands/');
+  } catch (error) {
+    if (error.code === '23503') {
+      return res.redirect(
+        303,
+        `/brands/${brandId}/delete?error=brand-not-empty`
+      );
+    }
+    next(error);
+  }
+}
+
 module.exports = {
   getAllBrands, getBrand, 
   getNewBrandForm, createBrand,
-  getEditBrandForm, updateBrand};
+  getEditBrandForm, updateBrand,
+  getDeleteBrandConfirmation, deleteBrand
+};

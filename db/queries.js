@@ -214,6 +214,17 @@ async function updateBrand(id, name, description) {
   );
   return rows[0];
 }
+
+async function deleteBrand(id) {
+  const { rows } = await pool.query(
+    `DELETE FROM brands
+     WHERE id = $1
+     RETURNING *`,
+    [id]
+  );
+  return rows[0];
+}
+
 // ---------- ACCESSORIES ----------
 
 async function getAllAccessories() {
@@ -242,6 +253,6 @@ module.exports = {
   getProductsByCategory, getProductsByBrand,
   createProduct, updateProduct, deleteProduct,
   getAllBrands, getBrandById, 
-  createBrand, updateBrand,
+  createBrand, updateBrand, deleteBrand,
   getAllAccessories, getAccessoriesByProduct,
 };

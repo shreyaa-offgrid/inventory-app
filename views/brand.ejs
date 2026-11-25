@@ -2,15 +2,24 @@
 
   <a href="/brands">&larr; All brands</a>
   <div class="brand-heading">
-   <h1> <%= brand.name %> </h1> 
-   <a class="button button-primary" href="/brands/<%= brand.id %>/edit">
-      Edit Brand
-    </a>
+    <div>
+      <h1>
+        <%= brand.name %>
+      </h1>
+      <p>
+        <%= brand.description %>
+      </p>
+    </div>
+
+    <div class="brand-actions">
+      <a class="button button-primary" href="/brands/<%= brand.id %>/edit">
+        Edit Brand
+      </a>
+      <a class="button button-danger" href="/brands/<%= brand.id %>/delete">
+        Delete Brand
+      </a>
+    </div>
   </div>
-  
-  <p>
-    <%= brand.description %>
-  </p>
 
   <div class="grid">
     <% if(products.length===0){ %>
